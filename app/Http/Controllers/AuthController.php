@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
+use App\Helpers\ResponseFormatter;
+use App\Http\Interface\AuthServiceInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -9,26 +12,53 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    protected $auth_svc;
+    public function __construct(AuthServiceInterface $auth_svc)
+    {
+        $this->auth_svc = $auth_svc;
+    }
     public function login(Request $request)
     {
+        // try {
+        // $request->validate([
+        //     'email' => 'required|email',
+        //     'password' => 'required',
+        //     'device_name' => 'required',
+        // ]);
+
+        $pipeline = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        $token = $this->auth_svc->loginService($pipeline);
+
+        return ResponseFormatter::success($token);
+        // } catch (\Throwable $th) {
+        //     throw $th;
+        // }
+    }
+
+    public function register(Request $request)
+    {
         try {
-            $request->validate([
-                'email' => 'required|email',
-                'password' => 'required',
-                'device_name' => 'required',
+            // Create the user
+            $validate = $request->validate([
+                'name' => ['required'],
+                'email' => ['required', 'email'],
+                'password' => ['required'],
             ]);
 
-            $user = User::where('email', $request->email)->first();
+            $token = $this->auth_svc->registerService($validate);
 
-            if (! $user || ! Hash::check($request->password, $user->password)) {
-                throw ValidationException::withMessages([
-                    'email' => ['The provided credentials are incorrect.'],
-                ]);
-            }
-
-            return $user->createToken($request->device_name)->plainTextToken;
+            // Return success response with token
+            return ResponseFormatter::success([
+                'token' => $token,
+            ], 'Registration successful');
         } catch (\Throwable $th) {
-            //throw $th;
+            $message = $th->getMessage();
+
+            return ResponseFormatter::error($message);
         }
     }
 }
