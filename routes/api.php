@@ -2,6 +2,8 @@
 
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\MovieController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,5 +15,13 @@ Route::prefix('auth')->group(function () {
 Route::get('/user', function (Request $request) {
     return $request->user();
     // return 'userrr';
-})
-    ->middleware('auth:sanctum');
+})->middleware('auth:sanctum');
+
+Route::prefix('media')->group(function () {
+    Route::post('/upload', [ImageUploadController::class, 'uploadImage']);
+})->middleware('auth:sanctum');
+
+Route::prefix('movie')->group(function () {
+    Route::get('/', [MovieController::class, 'index']);
+    Route::post('/', [MovieController::class, 'store']);
+})->middleware('auth:sanctum');

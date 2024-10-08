@@ -2,24 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseFormatter;
+use App\Http\Interface\MovieServiceInterface;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
+    protected $movie_service;
+    public function __construct(MovieServiceInterface $movie_service)
+    {
+        $this->movie_service = $movie_service;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        try {
+            $payloads = [];
+            $movie = $this->movie_service->get_data_movie($payloads);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+            return ResponseFormatter::success($movie);
+        } catch (\Throwable $th) {
+            return ResponseFormatter::error($th->getMessage(), true, $th->getTrace(), $th->getCode());
+        }
     }
 
     /**
@@ -27,7 +33,19 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $validate = $request->validate([
+                'title' => ['required'],
+                'publish' => ['required'],
+                'description' => ['required'],
+            ]);
+
+            $movie = $this->movie_service->create_movie_data($validate);
+
+            return ResponseFormatter::success($movie);
+        } catch (\Throwable $th) {
+            return ResponseFormatter::error($th->getMessage(), true, 'failed', $th->getCode());
+        }
     }
 
     /**
