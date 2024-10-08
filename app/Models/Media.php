@@ -9,4 +9,9 @@ class Media extends Model
 {
     use HasFactory;
     protected $table = 'medias';
+
+    public function movie()
+    {
+        return $this->hasOne(Movie::class, 'media_id', 'id');
+    }
 }

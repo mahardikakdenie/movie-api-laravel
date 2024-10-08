@@ -24,7 +24,7 @@ class MovieController extends Controller
 
             return ResponseFormatter::success($movie);
         } catch (\Throwable $th) {
-            return ResponseFormatter::error($th->getMessage(), true, $th->getTrace(), $th->getCode());
+            return ResponseFormatter::error($th->getMessage() . " - " . $th->getFile() . '-' . $th->getLine(), true, 'failed', $th->getCode());
         }
     }
 
@@ -38,13 +38,14 @@ class MovieController extends Controller
                 'title' => ['required'],
                 'publish' => ['required'],
                 'description' => ['required'],
+                'media_id' => ['required'],
             ]);
 
             $movie = $this->movie_service->create_movie_data($validate);
 
             return ResponseFormatter::success($movie);
         } catch (\Throwable $th) {
-            return ResponseFormatter::error($th->getMessage(), true, 'failed', $th->getCode());
+            return ResponseFormatter::error($th->getMessage() . " - " . $th->getFile() . '-' . $th->getLine(), true, 'failed', $th->getCode());
         }
     }
 

@@ -17,11 +17,11 @@ Route::get('/user', function (Request $request) {
     // return 'userrr';
 })->middleware('auth:sanctum');
 
-Route::prefix('media')->group(function () {
+Route::prefix('media')->middleware('auth:sanctum')->group(function () {
     Route::post('/upload', [ImageUploadController::class, 'uploadImage']);
-})->middleware('auth:sanctum');
+});
 
-Route::prefix('movie')->group(function () {
+Route::prefix('movie')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [MovieController::class, 'index']);
     Route::post('/', [MovieController::class, 'store']);
-})->middleware('auth:sanctum');
+});

@@ -24,10 +24,6 @@ class MovieService implements MovieServiceInterface
             return $curr === '' || $curr === null;
         });
 
-        if (count($is_field_not_valid) > 0) {
-            throw new Exception("Error Processing Request", 1);
-        }
-
         return $this->movie_repo->create($payloads);
     }
 }

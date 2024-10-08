@@ -10,7 +10,7 @@ class MovieRepository implements MovieRepositoryInterface
     public function get_many(array $payloads)
     {
         $limit = $payloads['limit'] ?? 10;
-        $movie = Movie::paginate($limit);
+        $movie = Movie::entities('media')->paginate($limit);
 
         return $movie;
     }
@@ -21,7 +21,9 @@ class MovieRepository implements MovieRepositoryInterface
             'title' => $payloads['title'],
             'publish' => $payloads['publish'],
             'description' => $payloads['description'],
+            'media_id' => $payloads['media_id'],
         ]);
+
 
         return $movie;
     }
