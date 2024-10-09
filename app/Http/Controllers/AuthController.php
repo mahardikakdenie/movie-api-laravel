@@ -19,24 +19,23 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
-        // try {
-        // $request->validate([
-        //     'email' => 'required|email',
-        //     'password' => 'required',
-        //     'device_name' => 'required',
-        // ]);
+        try {
+            $validate = $request->validate([
+                'email' => 'required|email',
+                'password' => 'required',
+            ]);
 
-        $pipeline = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
+            $pipeline = [
+                'email' => $validate['email'],
+                'password' => $validate['password'],
+            ];
 
-        $token = $this->auth_svc->loginService($pipeline);
+            $token = $this->auth_svc->loginService($pipeline);
 
-        return ResponseFormatter::success($token);
-        // } catch (\Throwable $th) {
-        //     throw $th;
-        // }
+            return ResponseFormatter::success($token);
+        } catch (\Throwable $th) {
+            return ResponseFormatter::error($th->getMessage(), true, false, $th->getCode());
+        }
     }
 
     public function register(Request $request)

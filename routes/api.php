@@ -14,7 +14,6 @@ Route::prefix('auth')->group(function () {
 
 Route::get('/user', function (Request $request) {
     return $request->user();
-    // return 'userrr';
 })->middleware('auth:sanctum');
 
 Route::prefix('media')->middleware('auth:sanctum')->group(function () {
@@ -24,4 +23,5 @@ Route::prefix('media')->middleware('auth:sanctum')->group(function () {
 Route::prefix('movie')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [MovieController::class, 'index']);
     Route::post('/', [MovieController::class, 'store']);
+    Route::put('/{id}', [MovieController::class, 'update']);
 });

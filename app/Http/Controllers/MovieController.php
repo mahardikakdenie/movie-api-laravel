@@ -19,7 +19,7 @@ class MovieController extends Controller
     public function index(Request $request)
     {
         try {
-            $payloads = [];
+            $payloads = $request->all();
             $movie = $this->movie_service->get_data_movie($payloads);
 
             return ResponseFormatter::success($movie);
@@ -70,7 +70,13 @@ class MovieController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $movie = $this->movie_service->update_data($id, $request->all());
+
+            return ResponseFormatter::success($movie);
+        } catch (\Throwable $th) {
+            return ResponseFormatter::error($th->getMessage() . " - " . $th->getFile() . '-' . $th->getLine(), true, 'failed', $th->getCode());
+        }
     }
 
     /**

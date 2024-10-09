@@ -5,6 +5,7 @@ namespace App\Http\Service;
 use App\Helpers\ResponseFormatter;
 use App\Http\Interface\AuthRepositoryInterface;
 use App\Http\Interface\AuthServiceInterface;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService implements AuthServiceInterface
@@ -32,7 +33,7 @@ class AuthService implements AuthServiceInterface
 
         $user = $this->auth_repo->get_one_raw($pipeline);
         if (! $user || ! Hash::check($pipeline['password'], $user->password)) {
-            return ResponseFormatter::error('password anda salah');
+            throw new Exception("Password Anda salah", 1);
         }
 
         $token = $user->createToken($user)->plainTextToken;

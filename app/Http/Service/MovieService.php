@@ -20,10 +20,11 @@ class MovieService implements MovieServiceInterface
 
     public function create_movie_data(array $payloads)
     {
-        $is_field_not_valid = array_filter($payloads, function ($curr) {
-            return $curr === '' || $curr === null;
-        });
-
         return $this->movie_repo->create($payloads);
+    }
+
+    public function update_data(string $id, array $payloads)
+    {
+        return $this->movie_repo->update($id, $payloads);
     }
 }
