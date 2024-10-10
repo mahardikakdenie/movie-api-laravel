@@ -25,6 +25,8 @@ class MovieRepository implements MovieRepositoryInterface
             'media_id' => $payloads['media_id'],
         ]);
 
+        $movie->media;
+
 
         return $movie;
     }
@@ -38,6 +40,7 @@ class MovieRepository implements MovieRepositoryInterface
             'description' => $payloads['description'] ?? $movie->description,
             'media_id' => $payloads['media_id'] ?? $movie->media_id,
         ]);
+
         $movie->media;
 
         return $movie;
