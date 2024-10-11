@@ -17,6 +17,7 @@ class AuthController extends Controller
     {
         $this->auth_svc = $auth_svc;
     }
+
     public function login(Request $request)
     {
         try {
@@ -59,5 +60,14 @@ class AuthController extends Controller
 
             return ResponseFormatter::error($message);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ], 200);
     }
 }
