@@ -28,9 +28,14 @@ Authenticate a user and obtain a token.
   
   Example:
   ```json
-  {
-    "token": "your-auth-token"
-  }
+    {
+        "meta": {
+            "status": true,
+            "message": "message.success",
+            "code": 200
+        },
+        "data": "<your-auth-token>"
+    }
 
 
 ### Register
