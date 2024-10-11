@@ -11,18 +11,18 @@ class ImageUploadController extends Controller
 {
     public function uploadImage(Request $request)
     {
-        // Validasi jika file ada dalam request
+        // Validate when file in the requiest
         if (!$request->hasFile('image')) {
             return response()->json(['error' => 'No file uploaded'], 400);
         }
 
-        // Dapatkan file yang diupload
+        // get file uploaded
         $file = $request->file('image');
 
-        // Baca konten file
+        // read file content
         $imageContent = file_get_contents($file->getPathname());
 
-        // Siapkan form-data untuk diupload ke imgbb
+        // Prepare form-data for upload to imgbb
         $response = Http::asMultipart()->post('https://api.imgbb.com/1/upload', [
             'key' => env('IMGBB_API_KEY'), // Pastikan API Key disertakan di .env
             'image' => base64_encode($imageContent), // Konversi gambar ke base64
@@ -35,7 +35,7 @@ class ImageUploadController extends Controller
         $media->data = $data;
         $media->save();
 
-        // Cek apakah request berhasil
+        // Check the request is success
         if ($response->successful()) {
             return response()->json([
                 'message' => 'Image uploaded successfully',
@@ -43,7 +43,7 @@ class ImageUploadController extends Controller
             ]);
         }
 
-        // Jika gagal, kembalikan error
+        // when it fails, return a error message
         return response()->json(['error' => 'Failed to upload image'], 500);
     }
 }
