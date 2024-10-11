@@ -7,7 +7,7 @@ This API provides endpoints for managing authentication, media uploads, and movi
 # Authentication Endpoints
 
 ## Base URL
-The base URL for all endpoints is: ```bash {{url}}/API
+The base URL for all endpoints is: `{{url}}/api`
 
 
 ## Authentication
