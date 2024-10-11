@@ -6,12 +6,8 @@ This API provides endpoints for managing authentication, media uploads, and movi
 
 # Authentication Endpoints
 
-# Movie API
-
-This API allows users to authenticate, upload media, and manage movie data. Below is the documentation for each endpoint available in this collection.
-
 ## Base URL
-The base URL for all endpoints is: {{url}}/API
+The base URL for all endpoints is: ```bash {{url}}/API
 
 
 ## Authentication
