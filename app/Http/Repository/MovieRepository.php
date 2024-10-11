@@ -33,8 +33,8 @@ class MovieRepository implements MovieRepositoryInterface
 
     public function update(string $id, array $payloads)
     {
-        $movie = Movie::findOrFail($id);
-        $movie->create([
+        $movie = Movie::entities('media')->findOrFail($id);
+        $movie->update([
             'title' => $payloads['title'] ?? $movie->title,
             'publish' => $payloads['publish'] ?? $movie->publish,
             'description' => $payloads['description'] ?? $movie->description,
