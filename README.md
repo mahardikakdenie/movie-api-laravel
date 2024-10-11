@@ -113,7 +113,7 @@ Upload an IMAGE FILE
 Retrieve a list of movies with media information.
 
 -   **URL:** `{{url}}/api/movie`
--   **Method:** `POST`
+-   **Method:** `GET`
 -   **Authentication:** Bearer Token required
 -   **Query Parameters**
     - `entities`: _string_ (e.g., `media`) to include media details in the response
@@ -154,4 +154,78 @@ Retrieve a list of movies with media information.
                     }
                 }
             ],
+    }
+
+### Create Movie Data
+Create a new movie data entry
+
+-   **URL:** `{{url}}/api/movie`
+-   **Method:** `POST`
+-   **Authentication:** Bearer Token required
+-   **Body (urlencoded):**
+    -   `title`: _string_ (e.g., `The Mechanic`)
+    -   `publish`: _string_ (e.g., `2022`)
+    -   `description`: _string_ (e.g., `An action-packed movie`)
+    -   `media_id`: _string_ (e.g., `2`)
+-   **Response:**
+    ```json
+    {
+        "meta": {
+            "status": true,
+            "message": "message.success",
+            "code": 200
+        },
+         "data": {
+            "title": "The Mechanic",
+            "publish": "2022",
+            "description": "Voluptatem debitis qui.\nVoluptatum repellendus aut.",
+            "media_id": "2",
+            "updated_at": "2024-10-11T17:43:25.000000Z",
+            "created_at": "2024-10-11T17:43:25.000000Z",
+            "id": 12,
+            "media": {
+                "id": 2,
+                "data": "{\"data\":{\"id\":\"YkLg0K7\",\"title\":\"20240411-144557-1712821512727-1-image-jpeg\",\"url_viewer\":\"https:\\/\\/ibb.co\\/YkLg0K7\",\"url\":\"https:\\/\\/i.ibb.co\\/DCRdr6D\\/20240411-144557-1712821512727-1-image-jpeg.jpg\",\"display_url\":\"https:\\/\\/i.ibb.co\\/Ph6kDbZ\\/20240411-144557-1712821512727-1-image-jpeg.jpg\",\"width\":1440,\"height\":1920,\"size\":303126,\"time\":1728372963,\"expiration\":0,\"image\":{\"filename\":\"20240411-144557-1712821512727-1-image-jpeg.jpg\",\"name\":\"20240411-144557-1712821512727-1-image-jpeg\",\"mime\":\"image\\/jpeg\",\"extension\":\"jpg\",\"url\":\"https:\\/\\/i.ibb.co\\/DCRdr6D\\/20240411-144557-1712821512727-1-image-jpeg.jpg\"},\"thumb\":{\"filename\":\"20240411-144557-1712821512727-1-image-jpeg.jpg\",\"name\":\"20240411-144557-1712821512727-1-image-jpeg\",\"mime\":\"image\\/jpeg\",\"extension\":\"jpg\",\"url\":\"https:\\/\\/i.ibb.co\\/YkLg0K7\\/20240411-144557-1712821512727-1-image-jpeg.jpg\"},\"medium\":{\"filename\":\"20240411-144557-1712821512727-1-image-jpeg.jpg\",\"name\":\"20240411-144557-1712821512727-1-image-jpeg\",\"mime\":\"image\\/jpeg\",\"extension\":\"jpg\",\"url\":\"https:\\/\\/i.ibb.co\\/Ph6kDbZ\\/20240411-144557-1712821512727-1-image-jpeg.jpg\"},\"delete_url\":\"https:\\/\\/ibb.co\\/YkLg0K7\\/06bc5a2733d6a0c94798283df31b6cfd\"},\"success\":true,\"status\":200}",
+                "created_at": "2024-10-08T07:43:07.000000Z",
+                "updated_at": "2024-10-08T07:43:07.000000Z"
+            }
+        }
+    }
+
+### Update Movie Data
+Update an existing movie entry.
+
+-   **URL:** `{{url}}/api/movie/{id}`
+-   **Method:** `PUT`
+-   **Authentication:** Bearer Token required
+-   **Path Parameter:**
+    -   `id` _integer_ (The ID of the movie to update)
+-   **Body (urlencoded):**
+    -   `title`: _string_ (e.g., `The Mechanic`)
+    -   `publish`: _string_ (e.g., `2022`)
+    -   `description`: _string_ (e.g., `An action-packed movie`)
+    -   `media_id`: _string_ (e.g., `2`)
+-   **Response:**
+    ```json
+    {
+        "meta": {
+            "status": true,
+            "message": "message.success",
+            "code": 200
+        },
+         "data": {
+            "title": "The Mechanic",
+            "publish": "2022",
+            "description": "Voluptatem debitis qui.\nVoluptatum repellendus aut.",
+            "media_id": "2",
+            "updated_at": "2024-10-11T17:43:25.000000Z",
+            "created_at": "2024-10-11T17:43:25.000000Z",
+            "id": 12,
+            "media": {
+                "id": 2,
+                "data": "{\"data\":{\"id\":\"YkLg0K7\",\"title\":\"20240411-144557-1712821512727-1-image-jpeg\",\"url_viewer\":\"https:\\/\\/ibb.co\\/YkLg0K7\",\"url\":\"https:\\/\\/i.ibb.co\\/DCRdr6D\\/20240411-144557-1712821512727-1-image-jpeg.jpg\",\"display_url\":\"https:\\/\\/i.ibb.co\\/Ph6kDbZ\\/20240411-144557-1712821512727-1-image-jpeg.jpg\",\"width\":1440,\"height\":1920,\"size\":303126,\"time\":1728372963,\"expiration\":0,\"image\":{\"filename\":\"20240411-144557-1712821512727-1-image-jpeg.jpg\",\"name\":\"20240411-144557-1712821512727-1-image-jpeg\",\"mime\":\"image\\/jpeg\",\"extension\":\"jpg\",\"url\":\"https:\\/\\/i.ibb.co\\/DCRdr6D\\/20240411-144557-1712821512727-1-image-jpeg.jpg\"},\"thumb\":{\"filename\":\"20240411-144557-1712821512727-1-image-jpeg.jpg\",\"name\":\"20240411-144557-1712821512727-1-image-jpeg\",\"mime\":\"image\\/jpeg\",\"extension\":\"jpg\",\"url\":\"https:\\/\\/i.ibb.co\\/YkLg0K7\\/20240411-144557-1712821512727-1-image-jpeg.jpg\"},\"medium\":{\"filename\":\"20240411-144557-1712821512727-1-image-jpeg.jpg\",\"name\":\"20240411-144557-1712821512727-1-image-jpeg\",\"mime\":\"image\\/jpeg\",\"extension\":\"jpg\",\"url\":\"https:\\/\\/i.ibb.co\\/Ph6kDbZ\\/20240411-144557-1712821512727-1-image-jpeg.jpg\"},\"delete_url\":\"https:\\/\\/ibb.co\\/YkLg0K7\\/06bc5a2733d6a0c94798283df31b6cfd\"},\"success\":true,\"status\":200}",
+                "created_at": "2024-10-08T07:43:07.000000Z",
+                "updated_at": "2024-10-08T07:43:07.000000Z"
+            }
+        }
     }
