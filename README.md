@@ -117,6 +117,7 @@ Retrieve a list of movies with media information.
 -   **Authentication:** Bearer Token required
 -   **Query Parameters**
     - `entities`: _string_ (e.g., `media`) to include media details in the response
+    - `limit`:_string_ | _int_ (e.g., `1`) to set per_page pagination
 -   **Response:**
     ```json
     {
